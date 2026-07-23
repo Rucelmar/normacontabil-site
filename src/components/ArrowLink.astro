@@ -1,0 +1,16 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  variant?: 'on-dark' | 'on-light';
+  reveal?: boolean;
+}
+const { href, text, variant = 'on-dark', reveal = true } = Astro.props;
+---
+
+<a class={`arrow-link ${variant}${reveal ? ' reveal' : ''}`} href={href}>
+  <span class="arrow-link__btn" aria-hidden="true">
+    <svg viewBox="20 41.091 160 117.822" width="24" height="24" xmlns="http://www.w3.org/2000/svg" role="presentation"><path d="M28 92h-8v16h8V92zm149.657 13.657a8 8 0 0 0 0-11.314l-50.912-50.912a8 8 0 0 0-11.314 11.314L160.687 100l-45.255 45.255a8 8 0 0 0 11.314 11.314l50.911-50.912zM28 108h144V92H28v16z" fill="#0C0C0C"/></svg>
+  </span>
+  <span class="arrow-link__text">{text}</span>
+</a>

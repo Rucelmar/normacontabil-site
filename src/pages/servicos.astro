@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+
+const servicos = [
+  {
+    titulo: 'Contabilidade Consultiva',
+    desc: 'Mais do que entregar obrigações fiscais, ajudamos você a entender os números e tomar decisões estratégicas com base neles. Relatórios claros, DRE Gerencial, e acompanhamento próximo.',
+    aberto: true,
+  },
+  {
+    titulo: 'Planejamento e Modelagem Financeira (FP&A)',
+    desc: 'Transformamos números em cenários e projeções para apoiar decisões de crescimento, investimento, pricing e expansão. Ideal para empresas em tração ou scale-up.',
+  },
+  {
+    titulo: 'Gestão Financeira (BPO Financeiro)',
+    desc: 'Cuidamos da sua operação financeira como se fosse nossa: contas a pagar/receber, conciliação, emissão de notas, cobranças, relatórios e controle do caixa com eficiência e clareza.',
+  },
+  {
+    titulo: 'Fiscal e Tributário',
+    desc: 'Apuração de tributos, entregas acessórias e planejamento tributário. Atuamos com inteligência fiscal para garantir conformidade e buscar economia legal dentro do seu modelo de negócio.',
+  },
+  {
+    titulo: 'Departamento Pessoal e Gestão de Remuneração',
+    desc: 'Gestão completa da folha, admissões, encargos e obrigações trabalhistas. Suporte estratégico na contratação, na definição de pró-labore e na organização das relações com a equipe.',
+  },
+  {
+    titulo: 'Societário e Legal',
+    desc: 'Abertura, alterações e estruturação societária com segurança jurídica. Auxiliamos em reorganizações, contratos sociais e regularizações cadastrais com agilidade e precisão técnica.',
+  },
+];
+---
+
+<Base
+  title="Norma Contábil | Serviços"
+  description="Serviços contábeis completos, do operacional ao estratégico: contabilidade consultiva, FP&A, BPO financeiro, fiscal e tributário, departamento pessoal e societário."
+  active="servicos"
+  bodyClass="page--servicos"
+>
+  <section class="section section--dark page-lead">
+    <div class="container services-layout">
+      <div class="services-intro">
+        <h1 class="services-intro__title">Serviços contábeis completos, do operacional ao estratégico.</h1>
+        <p class="services-intro__text">Aqui, você não recebe PDFs automáticos nem respostas copiadas. Trabalhamos com um time sênior, próximo e estratégico — que traduz números em decisões e traz inteligência contábil para o centro do seu negócio.</p>
+      </div>
+
+      <div class="accordion">
+        {servicos.map((s) => (
+          <details class="accordion__item" open={s.aberto}>
+            <summary class="accordion__head" set:html={s.titulo}></summary>
+            <div class="accordion__body"><p>{s.desc}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+  <Footer />
+</Base>

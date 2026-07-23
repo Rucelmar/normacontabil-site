@@ -186,23 +186,49 @@
     requestAnimationFrame(frame);
   })();
 
-  /* Envio simulado (sem backend) — reaproveitável p/ os formulários */
-  function wireForm(formId, statusClass, okMsg, errMsg) {
+  /* Envio real dos formulários via rotas /api (Resend no Cloudflare) */
+  function wireForm(formId, statusClass, endpoint, okMsg, errMsg) {
     var form = document.getElementById(formId);
     if (!form) return;
     var status = form.querySelector("." + statusClass);
+    function setStatus(msg, cls) {
+      if (!status) return;
+      status.className = statusClass + (cls ? " " + cls : "");
+      status.textContent = msg;
+    }
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      if (status) status.className = statusClass;
       if (!form.checkValidity()) {
-        if (status) { status.textContent = errMsg; status.classList.add("is-err"); }
+        setStatus(errMsg, "is-err");
         form.reportValidity();
         return;
       }
-      if (status) { status.textContent = okMsg; status.classList.add("is-ok"); }
-      form.reset();
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+      setStatus("Enviando…", "");
+      var payload = Object.fromEntries(new FormData(form).entries());
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; });
+        })
+        .then(function (res) {
+          if (res.ok && res.d && res.d.ok) {
+            setStatus(okMsg, "is-ok");
+            form.reset();
+          } else {
+            setStatus("Não foi possível enviar agora. Tente novamente ou escreva para contato@normacontabil.com.", "is-err");
+          }
+        })
+        .catch(function () {
+          setStatus("Falha de conexão. Tente novamente em instantes.", "is-err");
+        })
+        .finally(function () { if (btn) btn.disabled = false; });
     });
   }
-  wireForm("contato-form", "cform__status", "Mensagem enviada! Retornaremos em breve.", "Preencha os campos obrigatórios.");
-  wireForm("news-form", "news__status", "Inscrição realizada. Obrigado!", "Informe um e-mail válido.");
+  wireForm("contato-form", "cform__status", "/api/contato", "Mensagem enviada! Retornaremos em breve.", "Preencha os campos obrigatórios.");
+  wireForm("news-form", "news__status", "/api/newsletter", "Inscrição realizada. Obrigado!", "Informe um e-mail válido.");
 })();

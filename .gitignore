@@ -1,12 +1,6 @@
-# Sistema
-.DS_Store
-Thumbs.db
-
-# Editores
-.vscode/
-.idea/
-*.swp
-
-# Logs / temporários
-*.log
 node_modules/
+dist/
+.astro/
+.wrangler/
+.DS_Store
+*.log

@@ -1,0 +1,34 @@
+---
+interface Props {
+  active?: string;
+}
+const { active = '' } = Astro.props;
+
+const items = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/servicos', label: 'Serviços', key: 'servicos' },
+  { href: '/sobre', label: 'Sobre', key: 'sobre' },
+  { href: '/blog', label: 'Blog', key: 'blog' },
+  { href: '/contato', label: 'Contato', key: 'contato' },
+];
+---
+
+<header class="site-header" id="topo">
+  <div class="site-header__inner">
+    <a class="brand" href="/" aria-label="Norma Contábil - página inicial">
+      <img class="brand__logo" src="/assets/img/logo.svg" width="161" height="24" alt="norma contábil" />
+    </a>
+    <nav class="nav" aria-label="Menu principal">
+      {items.map((i) => (
+        <a
+          class={`nav__link${active === i.key ? ' is-active' : ''}`}
+          href={i.href}
+          aria-current={active === i.key ? 'page' : undefined}
+        >{i.label}</a>
+      ))}
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

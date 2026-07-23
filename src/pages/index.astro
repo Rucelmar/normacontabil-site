@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Norma Contábil | Escritório de Contabilidade"
+  description="Contabilidade consultiva e planejamento financeiro para empresas em crescimento. Organizamos sua rotina financeira, criamos previsões estratégicas e liberamos seu tempo."
+  active="home"
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <canvas class="hero__canvas" id="wave-canvas" aria-hidden="true"></canvas>
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="container hero__content">
+      <h1 class="hero__title">Contabilidade consultiva e planejamento financeiro pra empresas em crescimento</h1>
+      <p class="hero__sub">Organizamos sua rotina financeira, criamos previsões estratégicas e liberamos seu tempo para você focar no que realmente importa: crescer com segurança.</p>
+      <ArrowLink href="#contato" text="Entre em contato" variant="on-dark" reveal={false} />
+    </div>
+  </section>
+
+  <!-- ===================== SOLUÇÕES (escuro) ===================== -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-intro">
+        <h2 class="section-intro__title reveal">Muito além da contabilidade tradicional</h2>
+        <p class="section-intro__text reveal">Cuidamos da rotina, mas também te ajudamos a entender os números, prever resultados e agir com mais segurança.</p>
+        <ArrowLink href="/servicos" text="Conheça nossas soluções" variant="on-dark" />
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__media"><img src="/assets/img/card-gestao.jpg" alt="Empresário digitando no laptop" loading="lazy" /></div>
+          <h3 class="card__title">Gestão financeira</h3>
+          <p class="card__text">Cuidamos da organização completa da sua operação financeira: contas a pagar e receber, controle de fluxo de caixa, emissão de notas, conciliação bancária e mais.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__media"><img src="/assets/img/card-relatorios.jpg" alt="Homem negócios, usando computador portátil" loading="lazy" /></div>
+          <h3 class="card__title">Relatórios acessíveis</h3>
+          <p class="card__text">Traduzimos os números do seu negócio em informações compreensíveis, para que você possa acompanhar sua saúde financeira sem precisar ser especialista.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__media"><img src="/assets/img/card-previsoes.jpg" alt="Sala de conferência" loading="lazy" /></div>
+          <h3 class="card__title">Previsões estratégicas</h3>
+          <p class="card__text">Com base nos seus dados, geramos projeções realistas de margem, lucro, impostos e crescimento, para que suas decisões sejam baseadas em fatos, não em achismos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ESPECIALISTAS (teal) ===================== -->
+  <section class="section section--teal">
+    <div class="container">
+      <h2 class="section-intro__title reveal">Especialistas em negócios de serviço</h2>
+      <p class="section-intro__text reveal">Atendemos quem vive de vender conhecimento e criatividade.</p>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__seq">Startups&nbsp; ·&nbsp; Negócios Digitais&nbsp; ·&nbsp; Agências de Publicidade&nbsp; ·&nbsp; Marketing Digital&nbsp; ·&nbsp; Estúdios Criativos&nbsp; ·&nbsp; Produtoras de Conteúdo&nbsp; ·&nbsp; SaaS&nbsp; ·&nbsp; Edtechs&nbsp; ·&nbsp; Foodtechs&nbsp; ·&nbsp; Clínicas Médicas&nbsp; ·&nbsp; Clínicas Odontológicas&nbsp; ·&nbsp; Clínicas de Fisioterapia&nbsp; ·&nbsp; Clínicas de Psicologia&nbsp; ·&nbsp; Consultorias&nbsp; ·&nbsp; Fintechs&nbsp; ·&nbsp; B2B&nbsp; ·&nbsp; Insurtechs&nbsp; ·&nbsp; Negócios em Expansão&nbsp; ·&nbsp; Multinacionais&nbsp; ·&nbsp; </span>
+        <span class="marquee__seq">Startups&nbsp; ·&nbsp; Negócios Digitais&nbsp; ·&nbsp; Agências de Publicidade&nbsp; ·&nbsp; Marketing Digital&nbsp; ·&nbsp; Estúdios Criativos&nbsp; ·&nbsp; Produtoras de Conteúdo&nbsp; ·&nbsp; SaaS&nbsp; ·&nbsp; Edtechs&nbsp; ·&nbsp; Foodtechs&nbsp; ·&nbsp; Clínicas Médicas&nbsp; ·&nbsp; Clínicas Odontológicas&nbsp; ·&nbsp; Clínicas de Fisioterapia&nbsp; ·&nbsp; Clínicas de Psicologia&nbsp; ·&nbsp; Consultorias&nbsp; ·&nbsp; Fintechs&nbsp; ·&nbsp; B2B&nbsp; ·&nbsp; Insurtechs&nbsp; ·&nbsp; Negócios em Expansão&nbsp; ·&nbsp; Multinacionais&nbsp; ·&nbsp; </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ESCALÁVEL (branco) ===================== -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section-intro">
+        <h2 class="section-intro__title reveal">Escalável para o seu tamanho</h2>
+        <p class="section-intro__text reveal">Não importa o tamanho da sua operação: nossos serviços são adaptados à realidade de quem está começando, crescendo ou já atua em múltiplos mercados.</p>
+        <ArrowLink href="/servicos" text="Conheça nossas soluções" variant="on-light" />
+      </div>
+
+      <div class="cards cards--icon">
+        <article class="card-icon reveal">
+          <svg class="card-icon__ico" viewBox="42.5 45 115 110" width="45" height="45" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true"><path d="M113.556 45v34.409H78.028v34.406H42.5V155h115V45h-43.944zM78.028 146.603H50.915v-24.392h27.113v24.392zm35.528 0H86.445V87.806h27.112v58.797zm35.529 0h-27.114V53.396h27.114v93.207z" fill="#2F54DD"/></svg>
+          <h3 class="card-icon__title">Empresas em expansão</h3>
+          <p class="card-icon__text">Negócios complexos, com múltiplas fontes de receita, que precisam de previsibilidade, planejamento e dados robustos.</p>
+        </article>
+        <article class="card-icon reveal">
+          <svg class="card-icon__ico" viewBox="18 23.5 164 153" width="45" height="45" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true"><path d="M182 96.529L98.871 23.5 18 96.882l7.087 7.792 9.977-9.052V176.5H165V95.616l10.041 8.82L182 96.529zM87.511 163.85v-39.138h25.046v39.138H87.511zm66.95 2.125h-31.366v-51.792H76.972v51.792H45.603V86.058l53.382-48.44 55.476 48.739v79.618z" fill="#4854C7"/></svg>
+          <h3 class="card-icon__title">Pequenas e médias empresas</h3>
+          <p class="card-icon__text">Empresas com equipe, operação ativa e necessidade de clareza para tomar decisões com segurança.</p>
+        </article>
+        <article class="card-icon reveal">
+          <svg class="card-icon__ico" viewBox="39.5 20 121 160.001" width="45" height="45" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true"><path d="M100.001 96.006c20.935 0 37.907-17.014 37.907-38.003S120.936 20 100.001 20c-20.937 0-37.909 17.014-37.909 38.003s16.972 38.003 37.909 38.003zm0-61.103c12.726 0 23.042 10.342 23.042 23.1s-10.316 23.1-23.042 23.1c-12.724 0-23.041-10.342-23.041-23.1s10.317-23.1 23.041-23.1zm60.396 137.099c-6.022-34.368-23.991-61.997-60.396-61.997-36.404 0-54.375 27.629-60.398 61.997-.732 4.175 2.525 7.999 6.753 7.999 3.333 0 6.194-2.416 6.723-5.716 4.467-27.847 17.427-50.281 46.922-50.281 29.494 0 42.453 22.434 46.919 50.281.529 3.3 3.39 5.716 6.723 5.716 4.229-.001 7.485-3.825 6.754-7.999z" fill="#2F54DD"/></svg>
+          <h3 class="card-icon__title">Prestadores de serviço</h3>
+          <p class="card-icon__text">Autônomos, profissionais liberais e microempresas que precisam de estrutura, sem burocracia.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+  <Footer />
+</Base>

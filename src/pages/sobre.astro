@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import Footer from '../components/Footer.astro';
+
+const passos = [
+  { num: '01', titulo: 'Traduzir números<br />em decisões' },
+  { num: '02', titulo: 'Organizar a rotina<br />operacional' },
+  { num: '03', titulo: 'Apoiar o crescimento com inteligência e proximidade' },
+];
+---
+
+<Base
+  title="Norma Contábil | Sobre"
+  description="A Norma Contábil nasceu da inquietação de profissionais que viveram os bastidores das empresas — uma parceira estratégica com mentalidade de negócio."
+  active="sobre"
+  bodyClass="page--sobre"
+>
+  <!-- Abertura -->
+  <section class="section section--dark page-lead">
+    <div class="container about-lead__grid">
+      <h1 class="about-lead__statement">A Norma Contábil nasceu da inquietação de profissionais que viveram, por dentro, os bastidores das empresas — não como prestadores de serviço, mas como líderes e decisores.</h1>
+      <div class="about-lead__intro">
+        <p>Com experiência acumulada em grandes grupos empresariais, multinacionais e ambientes de alta performance, sua fundação foi movida por uma constatação: a contabilidade, na maioria das empresas, ainda é limitada ao cumprimento de obrigações. Guias entregues no fim do mês. Relatórios sem análise. Atendimento técnico, distante da realidade do negócio.</p>
+        <p>E enquanto isso, do outro lado, os gestores lidam com um cenário complexo: múltiplos sócios, equipes enxutas, modelo de negócio recorrente ou escalável, decisões rápidas — e pouca clareza nos números.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto (fundo escuro com imagem) -->
+  <section class="section bg-section" style="background-image:url('/assets/img/sobre-1.jpg')">
+    <div class="container">
+      <h2 class="about-statement">Foi a partir dessa visão que nasceu a Norma. Não como mais um escritório de contabilidade, mas como uma parceira estratégica com mentalidade de negócio. Um ecossistema consultivo que une contabilidade, BPO financeiro, planejamento financeiro (FP&amp;A) e suporte na estruturação de empresas em crescimento.</h2>
+      <ArrowLink href="/servicos" text="Conheça nossos serviços" variant="on-dark" reveal={false} />
+    </div>
+  </section>
+
+  <!-- Passos (fundo branco, cards pretos) -->
+  <section class="section section--white">
+    <div class="container steps__grid">
+      <h2 class="steps__label">Desde o início, a proposta foi clara:</h2>
+      <ol class="steps__list">
+        {passos.map((p) => (
+          <li class="step-card">
+            <span class="step-card__num">{p.num}</span>
+            <h3 class="step-card__title" set:html={p.titulo}></h3>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Atendemos (fundo escuro com imagem) -->
+  <section class="section bg-section" style="background-image:url('/assets/img/sobre-2.jpg')">
+    <div class="container">
+      <p class="about-closing__label">Na Norma, não entregamos apenas obrigações. Entregamos processo, método, visão e parceria.</p>
+      <p class="about-closing__lead">Atendemos empresas que vendem conhecimento, criatividade ou tecnologia. Negócios de serviço que têm modelos escaláveis, múltiplos sócios, equipes ágeis — e que precisam de uma contabilidade adaptada à complexidade de quem está estruturando e crescendo ao mesmo tempo.</p>
+    </div>
+  </section>
+
+  <!-- Fechamento (fundo azul) -->
+  <section class="section section--blue">
+    <div class="container">
+      <h2 class="about-blue__statement">Porque aqui, contabilidade não é um fim. É meio para construir empresas mais fortes, organizadas e preparadas para o que vem depois.</h2>
+      <ArrowLink href="/contato" text="Agende uma reunião" variant="on-dark" reveal={false} />
+    </div>
+  </section>
+
+  <Footer />
+</Base>

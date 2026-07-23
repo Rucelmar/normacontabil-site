@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+
+const fmtDate = (d: Date) =>
+  new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
+---
+
+<Base
+  title="Blog | Norma Contábil"
+  description="Conteúdos da Norma Contábil sobre contabilidade consultiva, planejamento financeiro e gestão para empresas em crescimento."
+  active="blog"
+  bodyClass="page--blog"
+>
+  <section class="section section--dark page-lead">
+    <div class="container">
+      <h1 class="section-intro__title" style="color:var(--white)">Explore nossos conteúdos</h1>
+
+      <div class="post-list">
+        {posts.map((p) => (
+          <a class="post-card" href={`/post/${p.id}`}>
+            <div class="post-card__media"><img src={p.data.cover} alt={p.data.title} loading="lazy" /></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">{fmtDate(p.data.date)} · {p.data.readingTime}</p>
+              <h2 class="post-card__title">{p.data.title}</h2>
+              <p class="post-card__excerpt">{p.data.excerpt}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+  <Footer />
+</Base>
