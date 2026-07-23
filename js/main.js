@@ -2,14 +2,22 @@
 (function () {
   "use strict";
 
-  /* Header ganha fundo ao rolar */
+  /* Header ganha fundo ao rolar (throttle via rAF p/ evitar reflow) */
   var header = document.querySelector(".site-header");
-  var onScroll = function () {
-    if (window.scrollY > 40) header.classList.add("is-scrolled");
+  var headerTicking = false;
+  var applyHeader = function (y) {
+    if (y > 40) header.classList.add("is-scrolled");
     else header.classList.remove("is-scrolled");
   };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  window.addEventListener("scroll", function () {
+    if (headerTicking) return;
+    headerTicking = true;
+    requestAnimationFrame(function () {
+      applyHeader(window.scrollY);
+      headerTicking = false;
+    });
+  }, { passive: true });
+  applyHeader(window.scrollY);
 
   /* Menu mobile */
   var toggle = document.querySelector(".nav-toggle");
@@ -90,15 +98,22 @@
     window.addEventListener("resize", resize);
 
     // Parallax suave: a onda desloca mais devagar que o conteúdo ao rolar.
+    // Altura do hero é lida só no resize (evita reflow a cada scroll).
     var heroEl = canvas.closest(".hero");
-    function onParallax() {
-      var y = window.scrollY || window.pageYOffset || 0;
-      var limit = heroEl ? heroEl.offsetHeight : window.innerHeight;
-      if (y > limit) return; // fora do hero, não precisa atualizar
-      canvas.style.transform = "translate3d(0," + (y * 0.35) + "px,0)";
-    }
-    window.addEventListener("scroll", onParallax, { passive: true });
-    onParallax();
+    var heroLimit = heroEl ? heroEl.offsetHeight : window.innerHeight;
+    var pTicking = false;
+    window.addEventListener("resize", function () {
+      heroLimit = heroEl ? heroEl.offsetHeight : window.innerHeight;
+    });
+    window.addEventListener("scroll", function () {
+      if (pTicking) return;
+      pTicking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY || window.pageYOffset || 0;
+        if (y <= heroLimit) canvas.style.transform = "translate3d(0," + (y * 0.35) + "px,0)";
+        pTicking = false;
+      });
+    }, { passive: true });
 
     // Linha da onda: base inclinada + soma de senos (fluxo lento p/ direita)
     // Velocidades baixas = movimento delicado e equilibrado, como no original.
