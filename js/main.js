@@ -133,9 +133,14 @@
         ctx.fillRect(x - BAR_W / 2, y, BAR_W, H - y);
       }
 
-      // Ponto brilhante sobre a onda (fixo em x, a onda passa por baixo)
+      // Ponto brilhante que percorre a onda (ida e volta suave, sem salto)
       ctx.globalCompositeOperation = "source-over";
-      var dotX = W * 0.66;
+      var period = 26;                       // segundos para um trajeto de ida e volta
+      var phase = (t % period) / period;     // 0..1
+      var tri = phase < 0.5 ? phase * 2 : (1 - phase) * 2; // triângulo 0→1→0
+      // suaviza as extremidades (easing) para o movimento não parecer mecânico
+      var eased = tri * tri * (3 - 2 * tri);
+      var dotX = W * (0.06 + eased * 0.88);  // percorre de ~6% a ~94% da largura
       var dotY = waveY(dotX, t);
       var glow = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, 26);
       glow.addColorStop(0, "rgba(200,255,240,0.95)");
