@@ -41,6 +41,7 @@
   /* Marca item de navegação ativo conforme a seção visível */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__link"));
   var sections = navLinks
+    .filter(function (l) { var h = l.getAttribute("href"); return h && h.charAt(0) === "#"; })
     .map(function (l) { return document.querySelector(l.getAttribute("href")); })
     .filter(Boolean);
   if ("IntersectionObserver" in window && sections.length) {
