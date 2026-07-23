@@ -118,15 +118,33 @@
 
     // Linha da onda: base inclinada + soma de senos (fluxo lento p/ direita)
     // Velocidades baixas = movimento delicado e equilibrado, como no original.
-    function waveY(x, t) {
+    // `o.phase` e `o.baseOff` permitem desenhar camadas defasadas (2 ondas).
+    function waveY(x, t, o) {
+      var ph = o ? (o.phase || 0) : 0;
+      var boff = o ? (o.baseOff || 0) : 0;
       var n = x / W;                              // 0..1
-      var base = H * 0.76 - n * H * 0.12;         // sobe em direção à direita
+      var base = H * (0.76 + boff) - n * H * 0.12; // sobe em direção à direita
       var amp = 0.5 + n * 0.8;                     // menor à esquerda (texto respira), maior à direita
       var y = base;
-      y -= Math.sin(x * 0.0042 + t * 0.16) * H * 0.15 * amp;   // onda longa (lenta)
-      y -= Math.sin(x * 0.0110 - t * 0.24) * H * 0.05 * amp;   // média
-      y -= Math.sin(x * 0.0200 + t * 0.34) * H * 0.014 * amp;  // ondulação sutil
+      y -= Math.sin(x * 0.0042 + t * 0.16 + ph) * H * 0.15 * amp;   // onda longa (lenta)
+      y -= Math.sin(x * 0.0110 - t * 0.24 + ph) * H * 0.05 * amp;   // média
+      y -= Math.sin(x * 0.0200 + t * 0.34 + ph) * H * 0.014 * amp;  // ondulação sutil
       return y;
+    }
+
+    // Desenha as barras de uma onda (uma camada).
+    function drawBars(t, layer) {
+      for (var x = 0; x <= W; x += BAR_GAP) {
+        var y = waveY(x, t, layer);
+        var n = x / W;
+        var alpha = (0.5 + n * 0.4) * layer.alphaMul;
+        var grad = ctx.createLinearGradient(0, y, 0, H);
+        grad.addColorStop(0, "rgba(41,255,198," + alpha + ")");
+        grad.addColorStop(0.15, "rgba(19,240,225," + (alpha * 0.75) + ")");
+        grad.addColorStop(1, "rgba(12,235,235,0)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(x - BAR_W / 2, y, BAR_W, H - y);
+      }
     }
 
     var t0 = null;
@@ -137,17 +155,9 @@
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
 
-      for (var x = 0; x <= W; x += BAR_GAP) {
-        var y = waveY(x, t);
-        var n = x / W;
-        var alpha = 0.5 + n * 0.4;                // barras vivas na largura toda
-        var grad = ctx.createLinearGradient(0, y, 0, H);
-        grad.addColorStop(0, "rgba(41,255,198," + alpha + ")");
-        grad.addColorStop(0.15, "rgba(19,240,225," + (alpha * 0.75) + ")");
-        grad.addColorStop(1, "rgba(12,235,235,0)");
-        ctx.fillStyle = grad;
-        ctx.fillRect(x - BAR_W / 2, y, BAR_W, H - y);
-      }
+      // Duas ondas sobrepostas: a de trás (defasada, mais baixa e fraca) + a da frente.
+      drawBars(t, { phase: 2.1, baseOff: 0.055, alphaMul: 0.5 });
+      drawBars(t, { phase: 0, baseOff: 0, alphaMul: 1 });
 
       // Ponto brilhante que percorre a onda (ida e volta suave, sem salto)
       ctx.globalCompositeOperation = "source-over";
