@@ -3,6 +3,16 @@
    Valores (fonte, tamanho, cor, posição) medidos do site no ar.
    ========================================================= */
 
+/* Honeypot anti-spam: fora da tela, invisível e fora da ordem de tab —
+   bots preenchem, humanos nunca veem. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Fontes auto-hospedadas (sem dependência do Google Fonts).
    Inter é variável: um arquivo cobre todos os pesos. */
 @font-face {

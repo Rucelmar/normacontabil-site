@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { isRateLimited } from '../../lib/rateLimit';
 
 // Rota sob demanda (Pages Function no Cloudflare), não pré-renderizada.
 export const prerender = false;
@@ -7,6 +8,7 @@ interface Env {
   RESEND_API_KEY?: string;
   LEAD_TO?: string;
   RESEND_FROM?: string;
+  RATE_LIMIT?: any;
 }
 
 const esc = (s: string) =>
@@ -23,6 +25,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const host = request.headers.get('host');
   if (origin && host && !origin.endsWith(host)) return json({ ok: false, error: 'forbidden_origin' }, 403);
 
+  const env = ((locals as any)?.runtime?.env ?? {}) as Env;
+  const ip = request.headers.get('cf-connecting-ip') || 'unknown';
+  if (await isRateLimited(env.RATE_LIMIT, ip, 'contato')) return json({ ok: false, error: 'rate_limited' }, 429);
+
   let data: Record<string, string> = {};
   try {
     const ct = request.headers.get('content-type') || '';
@@ -36,6 +42,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ ok: false, error: 'bad_request' }, 400);
   }
 
+  // Honeypot: campo invisível que só um bot preencheria. Finge sucesso pra não
+  // dar pista de que foi detectado, mas descarta sem enviar nem processar mais nada.
+  if ((data.empresa_url || '').trim()) return json({ ok: true, delivered: true });
+
   const nome = (data.nome || '').trim().slice(0, 200);
   const empresa = (data.empresa || '').trim().slice(0, 200);
   const email = (data.email || '').trim().slice(0, 200);
@@ -44,7 +54,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   if (!nome || !empresa || !isEmail(email)) return json({ ok: false, error: 'campos_obrigatorios' }, 422);
 
-  const env = ((locals as any)?.runtime?.env ?? {}) as Env;
   const apiKey = env.RESEND_API_KEY;
   const to = env.LEAD_TO;
   const from = env.RESEND_FROM || 'Norma Contábil <contato@normacontabil.com>';

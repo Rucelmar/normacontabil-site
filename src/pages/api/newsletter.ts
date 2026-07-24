@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { isRateLimited } from '../../lib/rateLimit';
 
 export const prerender = false;
 
@@ -6,6 +7,7 @@ interface Env {
   RESEND_API_KEY?: string;
   LEAD_TO?: string;
   RESEND_FROM?: string;
+  RATE_LIMIT?: any;
 }
 
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
@@ -21,22 +23,33 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const host = request.headers.get('host');
   if (origin && host && !origin.endsWith(host)) return json({ ok: false, error: 'forbidden_origin' }, 403);
 
+  const env = ((locals as any)?.runtime?.env ?? {}) as Env;
+  const ip = request.headers.get('cf-connecting-ip') || 'unknown';
+  if (await isRateLimited(env.RATE_LIMIT, ip, 'newsletter')) return json({ ok: false, error: 'rate_limited' }, 429);
+
   let email = '';
+  let honeypot = '';
   try {
     const ct = request.headers.get('content-type') || '';
     if (ct.includes('application/json')) {
-      email = String((await request.json())['news-email'] || '');
+      const body = await request.json();
+      email = String(body['news-email'] || '');
+      honeypot = String(body['empresa_url'] || '');
     } else {
-      email = String((await request.formData()).get('news-email') || '');
+      const fd = await request.formData();
+      email = String(fd.get('news-email') || '');
+      honeypot = String(fd.get('empresa_url') || '');
     }
   } catch {
     return json({ ok: false, error: 'bad_request' }, 400);
   }
 
+  // Honeypot: campo invisível que só um bot preencheria. Finge sucesso.
+  if (honeypot.trim()) return json({ ok: true, delivered: true });
+
   email = email.trim().slice(0, 200);
   if (!isEmail(email)) return json({ ok: false, error: 'email_invalido' }, 422);
 
-  const env = ((locals as any)?.runtime?.env ?? {}) as Env;
   const apiKey = env.RESEND_API_KEY;
   const to = env.LEAD_TO;
   const from = env.RESEND_FROM || 'Norma Contábil <contato@normacontabil.com>';

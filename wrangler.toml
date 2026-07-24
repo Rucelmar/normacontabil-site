@@ -4,3 +4,8 @@ name = "normacontabil-site"
 pages_build_output_dir = "dist"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
+
+# KV usado para rate limiting dos endpoints /api/contato e /api/newsletter.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "2ae0105ef07a4ff1bb5e78a9079d2e51"

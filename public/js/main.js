@@ -238,15 +238,15 @@
           return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; });
         })
         .then(function (res) {
-          if (res.ok && res.d && res.d.ok) {
+          if (res.ok && res.d && res.d.ok && res.d.delivered !== false) {
             setStatus(okMsg, "is-ok");
             form.reset();
           } else {
-            setStatus("Não foi possível enviar agora. Tente novamente ou escreva para contato@normacontabil.com.", "is-err");
+            setStatus("Não conseguimos enviar agora. Tente novamente em instantes ou fale direto pelo contato@normacontabil.com / (51) 98344-5863.", "is-err");
           }
         })
         .catch(function () {
-          setStatus("Falha de conexão. Tente novamente em instantes.", "is-err");
+          setStatus("Falha de conexão. Verifique sua internet e tente novamente, ou fale pelo contato@normacontabil.com.", "is-err");
         })
         .finally(function () { if (btn) btn.disabled = false; });
     });

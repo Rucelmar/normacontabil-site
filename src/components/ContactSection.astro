@@ -19,6 +19,9 @@ const Title = titleTag;
     </div>
 
     <form class="cform" id="contato-form" novalidate>
+      <div class="hp-field" aria-hidden="true">
+        <label>Empresa (não preencher)<input type="text" name="empresa_url" tabindex="-1" autocomplete="off" /></label>
+      </div>
       <div class="cform__grid">
         <label class="cfield"><span class="cfield__label">Nome <span class="req">*</span></span><input type="text" name="nome" required /></label>
         <label class="cfield"><span class="cfield__label">Empresa <span class="req">*</span></span><input type="text" name="empresa" required /></label>
