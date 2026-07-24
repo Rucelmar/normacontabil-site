@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 24" role="img" aria-label="Norma Contábil">
+  <path fill="url(#nc-x-a)" d="m19.32 0-5.846 4.284c-.37.272-.589.703-.589 1.163v5.702l6.435-4.73z"/>
+  <path fill="url(#nc-x-b)" d="M0 1.688v5.69c0 .457.219.888.587 1.16l5.847 4.298L0 17.568.014 24l5.85-4.3c.368-.27.585-.7.585-1.157v-5.706l12.869 9.461V16.61c0-.46-.219-.89-.59-1.165l-5.845-4.298-6.434-4.73L0 1.685z"/>
+  <defs>
+    <linearGradient gradientUnits="userSpaceOnUse" y2="-243.218" x2="2.037" y1="-243.218" x1="17.281" id="nc-x-a">
+      <stop stop-color="#0CEBEB"/><stop stop-color="#13F0E1" offset=".36"/><stop stop-color="#27FDC8" offset=".95"/><stop stop-color="#29FFC6" offset="1"/>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" y2="-243.218" x2="2.037" y1="-243.218" x1="17.281" id="nc-x-b">
+      <stop stop-color="#0CEBEB"/><stop stop-color="#13F0E1" offset=".36"/><stop stop-color="#27FDC8" offset=".95"/><stop stop-color="#29FFC6" offset="1"/>
+    </linearGradient>
+  </defs>
+</svg>

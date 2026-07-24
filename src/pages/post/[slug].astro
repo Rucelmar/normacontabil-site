@@ -18,6 +18,8 @@ const { Content } = await render(post);
   description={post.data.excerpt.slice(0, 155)}
   active="blog"
   bodyClass="page--post"
+  ogImage={post.data.cover}
+  ogType="article"
 >
   <article class="post">
     <div class="post__panel">

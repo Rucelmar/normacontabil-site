@@ -22,7 +22,7 @@ const fmtDate = (d: Date) =>
 
       <div class="post-list">
         {posts.map((p) => (
-          <a class="post-card" href={`/post/${p.id}`}>
+          <a class="post-card" href={`/post/${p.id}/`}>
             <div class="post-card__media"><img src={p.data.cover} alt={p.data.title} loading="lazy" /></div>
             <div class="post-card__body">
               <p class="post-card__meta">{fmtDate(p.data.date)} · {p.data.readingTime}</p>

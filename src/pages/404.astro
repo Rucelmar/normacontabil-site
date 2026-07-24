@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Página não encontrada | Norma Contábil" description="A página que você procura não existe ou foi movida.">
+  <section class="section section--dark page-lead">
+    <div class="container">
+      <h1 class="section-intro__title">Página não encontrada</h1>
+      <p class="section-intro__text">O endereço que você acessou não existe ou foi movido.</p>
+      <ArrowLink href="/" text="Voltar para a Home" variant="on-dark" reveal={false} />
+    </div>
+  </section>
+  <Footer />
+</Base>

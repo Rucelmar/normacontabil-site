@@ -7,6 +7,8 @@ interface Props {
   description?: string;
   active?: string;
   bodyClass?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
@@ -14,10 +16,31 @@ const {
   description = 'Contabilidade consultiva e planejamento financeiro para empresas em crescimento.',
   active = '',
   bodyClass = '',
+  ogImage = '/og-image.png',
+  ogType = 'website',
 } = Astro.props;
 
+const site = Astro.site ?? new URL('https://www.normacontabil.com');
 // URL canônica (www) — reforça a escolha do domínio oficial para SEO.
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.normacontabil.com').href;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImageUrl = new URL(ogImage, site).href;
+
+// Organization/ProfessionalService — reforça identidade da marca nos resultados de busca.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Norma Contábil',
+  url: 'https://www.normacontabil.com',
+  logo: 'https://www.normacontabil.com/assets/img/logo-vertical.png',
+  image: 'https://www.normacontabil.com/og-image.png',
+  description: 'Contabilidade consultiva e planejamento financeiro para empresas em crescimento.',
+  email: 'contato@normacontabil.com',
+  telephone: '+5551983445863',
+  sameAs: [
+    'https://www.linkedin.com/company/norma-contabil/',
+    'https://www.instagram.com/norma.contabil/',
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -28,6 +51,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.normaco
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#111111" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Norma Contábil" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/azeret-mono-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
