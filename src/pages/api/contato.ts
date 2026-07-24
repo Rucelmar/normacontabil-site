@@ -17,6 +17,20 @@ function json(obj: unknown, status = 200) {
   return new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json' } });
 }
 
+// Diagnóstico (temporário): mostra quais variáveis chegaram à função,
+// sem expor os valores. Remover depois de confirmar o envio.
+export const GET: APIRoute = async ({ locals }) => {
+  const env = ((locals as any)?.runtime?.env ?? {}) as Env;
+  return json({
+    ok: true,
+    config: {
+      RESEND_API_KEY: !!env.RESEND_API_KEY,
+      LEAD_TO: !!env.LEAD_TO,
+      RESEND_FROM: !!env.RESEND_FROM,
+    },
+  });
+};
+
 export const POST: APIRoute = async ({ request, locals }) => {
   // CSRF simples: rejeita POST vindo de outra origem.
   const origin = request.headers.get('origin');
