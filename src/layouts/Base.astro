@@ -15,6 +15,9 @@ const {
   active = '',
   bodyClass = '',
 } = Astro.props;
+
+// URL canônica (www) — reforça a escolha do domínio oficial para SEO.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.normacontabil.com').href;
 ---
 
 <!DOCTYPE html>
@@ -24,6 +27,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/azeret-mono-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
