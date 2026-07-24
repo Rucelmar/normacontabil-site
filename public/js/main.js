@@ -17,7 +17,7 @@
       headerTicking = false;
     });
   }, { passive: true });
-  applyHeader(window.scrollY);
+  requestAnimationFrame(function () { applyHeader(window.scrollY); });
 
   /* Menu mobile */
   var toggle = document.querySelector(".nav-toggle");
