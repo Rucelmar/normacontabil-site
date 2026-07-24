@@ -147,11 +147,8 @@
       }
     }
 
-    var t0 = null;
-    function frame(now) {
-      if (t0 === null) t0 = now;
-      var t = reduced ? 3.2 : (now - t0) / 1000;
-
+    // Desenha um quadro completo (duas ondas + ponto brilhante) no tempo t (s).
+    function draw(t) {
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
 
@@ -164,8 +161,7 @@
       var period = 26;                       // segundos para um trajeto de ida e volta
       var phase = (t % period) / period;     // 0..1
       var tri = phase < 0.5 ? phase * 2 : (1 - phase) * 2; // triângulo 0→1→0
-      // suaviza as extremidades (easing) para o movimento não parecer mecânico
-      var eased = tri * tri * (3 - 2 * tri);
+      var eased = tri * tri * (3 - 2 * tri); // suaviza as extremidades
       var dotX = W * (0.06 + eased * 0.88);  // percorre de ~6% a ~94% da largura
       var dotY = waveY(dotX, t);
       var glow = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, 26);
@@ -180,10 +176,36 @@
       ctx.beginPath();
       ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
       ctx.fill();
-
-      if (!reduced) requestAnimationFrame(frame);
     }
-    requestAnimationFrame(frame);
+
+    // Loop limitado a ~30fps e pausado quando o hero não está visível.
+    var t0 = null, lastDraw = -1, running = false, visible = true;
+    var FRAME_MS = 1000 / 30;
+    function frame(now) {
+      if (!visible) { running = false; return; }
+      requestAnimationFrame(frame);
+      if (lastDraw >= 0 && now - lastDraw < FRAME_MS) return; // limita FPS
+      lastDraw = now;
+      if (t0 === null) t0 = now;
+      draw((now - t0) / 1000);
+    }
+    function startLoop() {
+      if (running || reduced || !visible) return;
+      running = true;
+      requestAnimationFrame(frame);
+    }
+
+    if (reduced) {
+      draw(3.2); // sem animação: um quadro estático
+    } else if ("IntersectionObserver" in window && heroEl) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        if (visible) startLoop();
+      }, { threshold: 0 }).observe(heroEl);
+      startLoop();
+    } else {
+      startLoop();
+    }
   })();
 
   /* Envio real dos formulários via rotas /api (Resend no Cloudflare) */

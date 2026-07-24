@@ -2,7 +2,7 @@
 title: "Cultura Financeira: o ativo invisível que separa empresas boas de empresas grandes"
 date: 2025-10-27
 readingTime: "3 min de leitura"
-cover: "/assets/img/blog-1.jpg"
+cover: "/assets/img/blog-1.webp"
 excerpt: "Empresas não crescem por faturar mais. Crescem por entender o que as faz lucrar. A maioria das empresas investe pesado em marketing, produto, vendas e tecnologia. Mas quando o assunto é cultura financeira, o investimento desaparece."
 order: 1
 ---

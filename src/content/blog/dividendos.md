@@ -2,7 +2,7 @@
 title: "Dividendos na mira: o que a nova tributação pode significar para empresas e sócios"
 date: 2025-09-12
 readingTime: "2 min de leitura"
-cover: "/assets/img/blog-2.jpg"
+cover: "/assets/img/blog-2.webp"
 excerpt: "A proposta de tributar dividendos voltou à pauta com a Reforma Tributária e já preocupa empresários, investidores e gestores. Após quase três décadas de isenção, a medida colocaria o Brasil em linha com a maioria das economias do mundo."
 order: 2
 ---

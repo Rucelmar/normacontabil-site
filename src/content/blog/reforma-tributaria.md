@@ -2,7 +2,7 @@
 title: "Reforma Tributária: o que muda e como sua empresa pode se preparar"
 date: 2025-07-25
 readingTime: "2 min de leitura"
-cover: "/assets/img/blog-6.jpg"
+cover: "/assets/img/blog-6.webp"
 excerpt: "A Reforma Tributária está em andamento e promete ser a maior reestruturação do sistema de tributos sobre consumo no Brasil nas últimas décadas. Entender as mudanças e se preparar desde já é essencial."
 order: 6
 ---

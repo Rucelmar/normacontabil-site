@@ -2,7 +2,7 @@
 title: "FP&A: o que é, como funciona e por que sua empresa precisa disso para crescer com segurança"
 date: 2025-07-27
 readingTime: "3 min de leitura"
-cover: "/assets/img/blog-4.jpg"
+cover: "/assets/img/blog-4.webp"
 excerpt: "Você sabe quanto a sua empresa vai faturar nos próximos meses? Se essas perguntas não têm respostas claras, o que falta não é só controle. É planejamento financeiro estruturado. É FP&A."
 order: 4
 ---

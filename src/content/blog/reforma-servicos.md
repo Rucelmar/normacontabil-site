@@ -2,7 +2,7 @@
 title: "Reforma Tributária e prestadores de serviço: o que muda e como se preparar"
 date: 2025-07-26
 readingTime: "2 min de leitura"
-cover: "/assets/img/blog-5.jpg"
+cover: "/assets/img/blog-5.webp"
 excerpt: "Se você é prestador de serviço, talvez já tenha ouvido: “a Reforma Tributária vai aumentar sua carga de impostos”. Mas será que isso é verdade? A resposta é: depende do seu modelo de negócio."
 order: 5
 ---

@@ -2,7 +2,7 @@
 title: "Tarifaço de 50% dos EUA: impactos para exportadores brasileiros e o que a contabilidade precisa fazer agora"
 date: 2025-08-12
 readingTime: "3 min de leitura"
-cover: "/assets/img/blog-3.jpg"
+cover: "/assets/img/blog-3.webp"
 excerpt: "No dia 6 de agosto de 2025, entrou em vigor nos Estados Unidos uma tarifa de 50% sobre cerca de 3.800 produtos brasileiros, afetando diretamente 56,6% das exportações do Brasil para o mercado americano."
 order: 3
 ---
