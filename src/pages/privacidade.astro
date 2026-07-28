@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+
+const atualizacao = '24 de julho de 2026';
+
+// Política própria da Norma Contábil, alinhada à LGPD (Lei nº 13.709/2018).
+// Reflete o que este site efetivamente faz: formulários de contato/newsletter,
+// hospedagem (Cloudflare), envio de e-mail (Resend) e e-mail corporativo (Google).
+const secoes = [
+  {
+    id: 'controlador',
+    t: 'Quem trata seus dados',
+    html: `<p>O responsável pelo tratamento dos dados pessoais coletados neste site é a <strong>Norma Contábil</strong> ("Norma", "nós"). Para qualquer assunto relacionado a esta Política ou aos seus dados, fale com o nosso encarregado pelo e-mail <a href="mailto:contato@normacontabil.com">contato@normacontabil.com</a> ou pelo telefone <a href="tel:+5551983445863">+55 (51) 98344-5863</a>.</p>`,
+  },
+  {
+    id: 'dados',
+    t: 'Quais dados coletamos',
+    html: `<p>Coletamos apenas o necessário para atender você:</p>
+      <ul>
+        <li><strong>Dados que você informa nos formulários:</strong> no formulário de contato, seu nome, empresa, e-mail, telefone (opcional) e a mensagem; na newsletter, o seu e-mail.</li>
+        <li><strong>Dados técnicos de acesso:</strong> informações como endereço IP, tipo de navegador e horário de acesso, tratados automaticamente pela nossa infraestrutura para segurança e prevenção de abuso (por exemplo, limitar envios automatizados de formulário).</li>
+      </ul>
+      <p>Não coletamos dados sensíveis nem dados de crianças e adolescentes por meio deste site.</p>`,
+  },
+  {
+    id: 'finalidade',
+    t: 'Por que tratamos seus dados',
+    html: `<p>Usamos seus dados para finalidades específicas, cada uma com a devida base legal da LGPD:</p>
+      <ul>
+        <li><strong>Responder ao seu contato</strong> e conduzir tratativas de prestação de serviços — base legal: procedimentos preliminares e execução de contrato (art. 7º, V) e legítimo interesse (art. 7º, IX).</li>
+        <li><strong>Enviar novidades e conteúdos</strong> (newsletter) — base legal: o seu consentimento (art. 7º, I), que pode ser revogado a qualquer momento.</li>
+        <li><strong>Garantir a segurança do site</strong> e prevenir fraudes e abusos — base legal: legítimo interesse (art. 7º, IX).</li>
+      </ul>`,
+  },
+  {
+    id: 'cookies',
+    t: 'Cookies',
+    html: `<p>Utilizamos apenas <strong>cookies funcionais</strong> — por exemplo, para registrar que você já visualizou o aviso de uso de cookies, evitando exibi-lo novamente. Não utilizamos cookies de publicidade nem vendemos dados para redes de anúncios. Você pode bloquear ou apagar cookies nas configurações do seu navegador, sem prejuízo ao acesso ao conteúdo do site.</p>`,
+  },
+  {
+    id: 'compartilhamento',
+    t: 'Com quem compartilhamos',
+    html: `<p>Não vendemos seus dados. Compartilhamos apenas com fornecedores que viabilizam o funcionamento do site e a comunicação com você, atuando como operadores sob nossas instruções:</p>
+      <ul>
+        <li><strong>Cloudflare</strong> — hospedagem, entrega e segurança do site.</li>
+        <li><strong>Resend</strong> — entrega dos e-mails gerados pelos formulários.</li>
+        <li><strong>Google Workspace</strong> — recebimento e gestão dos nossos e-mails corporativos.</li>
+      </ul>
+      <p>Também poderemos compartilhar dados quando exigido por lei ou por autoridade competente.</p>`,
+  },
+  {
+    id: 'internacional',
+    t: 'Transferência internacional',
+    html: `<p>Alguns dos fornecedores acima podem processar dados em servidores fora do Brasil. Nesses casos, adotamos salvaguardas para que o tratamento observe padrões de proteção compatíveis com a LGPD.</p>`,
+  },
+  {
+    id: 'retencao',
+    t: 'Por quanto tempo guardamos',
+    html: `<p>Mantemos seus dados apenas pelo tempo necessário às finalidades desta Política ou ao cumprimento de obrigações legais e regulatórias. Encerrada a finalidade, os dados são eliminados ou anonimizados. Você pode solicitar a exclusão a qualquer momento, ressalvadas as hipóteses de guarda obrigatória.</p>`,
+  },
+  {
+    id: 'seguranca',
+    t: 'Segurança',
+    html: `<p>Adotamos medidas técnicas e organizacionais para proteger seus dados, incluindo tráfego criptografado (HTTPS), controles de acesso e mecanismos contra envios automatizados. Nenhum sistema é totalmente imune a incidentes, mas trabalhamos continuamente para reduzir riscos.</p>`,
+  },
+  {
+    id: 'direitos',
+    t: 'Seus direitos',
+    html: `<p>Nos termos do art. 18 da LGPD, você pode, a qualquer momento:</p>
+      <ul>
+        <li>confirmar a existência de tratamento e acessar seus dados;</li>
+        <li>corrigir dados incompletos, inexatos ou desatualizados;</li>
+        <li>solicitar anonimização, bloqueio ou eliminação de dados desnecessários;</li>
+        <li>solicitar a portabilidade;</li>
+        <li>revogar o consentimento e se descadastrar de comunicações;</li>
+        <li>obter informação sobre com quem compartilhamos seus dados.</li>
+      </ul>`,
+  },
+  {
+    id: 'exercer',
+    t: 'Como exercer seus direitos',
+    html: `<p>Basta enviar um pedido para <a href="mailto:contato@normacontabil.com">contato@normacontabil.com</a>. Responderemos no menor prazo possível. Se preferir, você também pode registrar reclamação junto à Autoridade Nacional de Proteção de Dados (ANPD).</p>`,
+  },
+  {
+    id: 'alteracoes',
+    t: 'Alterações desta Política',
+    html: `<p>Podemos atualizar esta Política para refletir mudanças em nossos serviços ou na legislação. A versão vigente é sempre a publicada nesta página, com a data de atualização indicada acima.</p>`,
+  },
+];
+---
+
+<Base
+  title="Política de Privacidade | Norma Contábil"
+  description="Como a Norma Contábil coleta, usa e protege seus dados pessoais, em conformidade com a LGPD."
+  active=""
+  bodyClass="page--legal"
+>
+  <article class="legal">
+    <div class="legal__panel">
+      <p class="legal__meta">Última atualização: {atualizacao}</p>
+      <h1 class="legal__title">Política de Privacidade</h1>
+      <p class="legal__intro">Esta Política explica como a Norma Contábil coleta, utiliza, compartilha e protege os seus dados pessoais quando você utiliza este site, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).</p>
+
+      {secoes.map((s) => (
+        <section class="legal__section" id={s.id}>
+          <h2>{s.t}</h2>
+          <div set:html={s.html}></div>
+        </section>
+      ))}
+    </div>
+  </article>
+
+  <Footer />
+</Base>

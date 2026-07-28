@@ -1,0 +1,84 @@
+---
+// Aviso de uso de cookies (LGPD). Aparece até o visitante aceitar.
+// Aceite persistido por cookie (1 ano) + fallback em localStorage.
+---
+<div id="cookie-banner" class="cookie-banner" role="region" aria-label="Aviso de cookies" hidden>
+  <p class="cookie-banner__text">
+    <span class="cookie-banner__full">Usamos cookies funcionais e podemos tratar os dados que você fornece para prestar nossos serviços, conforme a LGPD.</span>
+    <span class="cookie-banner__short">Usamos cookies e tratamos seus dados conforme a LGPD.</span>
+    <a href="/privacidade/" class="cookie-banner__link">Política de Privacidade</a>.
+  </p>
+  <button id="cookie-accept" class="cookie-banner__btn" type="button">Entendi</button>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 9999;
+    background: rgba(17, 17, 17, 0.9);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    border-top: 2px solid var(--teal);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    flex-wrap: wrap;
+  }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner__text { margin: 0; flex: 1; min-width: 200px; color: rgba(251, 251, 251, 0.85); }
+  .cookie-banner__short { display: none; }
+  .cookie-banner__link {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cookie-banner__btn {
+    flex-shrink: 0;
+    background: var(--teal);
+    color: var(--bg-dark);
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    padding: 9px 22px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+  .cookie-banner__btn:hover { opacity: 0.88; }
+
+  @media (max-width: 640px) {
+    .cookie-banner { gap: 10px 14px; padding: 12px 16px; font-size: 12px; }
+    .cookie-banner__text { min-width: 0; flex: 1 1 100%; }
+    .cookie-banner__full { display: none; }
+    .cookie-banner__short { display: inline; }
+    .cookie-banner__btn { margin-left: auto; padding: 8px 18px; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var KEY = 'nc_cookie_ok';
+    function hasConsent() {
+      if (document.cookie.split('; ').some(function (c) { return c.indexOf(KEY + '=') === 0; })) return true;
+      try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; }
+    }
+    var banner = document.getElementById('cookie-banner');
+    if (!banner || hasConsent()) return;
+    banner.hidden = false;
+    var btn = document.getElementById('cookie-accept');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        document.cookie = KEY + '=1; path=/; max-age=31536000; samesite=lax';
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+        banner.hidden = true;
+      }, { once: true });
+    }
+  })();
+</script>
