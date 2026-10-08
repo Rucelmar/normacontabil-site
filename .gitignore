@@ -4,3 +4,6 @@ dist/
 .wrangler/
 .DS_Store
 *.log
+
+# Painel administrativo: repositório próprio (Rucelmar/norma-admin)
+adm/

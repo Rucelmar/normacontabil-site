@@ -4,8 +4,23 @@
     {
       "name": "normacontabil",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4599"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4599"
+      ],
       "port": 4599
+    },
+    {
+      "name": "norma-admin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "adm",
+        "run",
+        "dev"
+      ],
+      "port": 8788
     }
   ]
 }
