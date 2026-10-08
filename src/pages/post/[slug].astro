@@ -6,29 +6,106 @@ import Footer from '../../components/Footer.astro';
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('blog');
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
 }) satisfies GetStaticPaths;
 
-const { post } = Astro.props;
+const { post, posts } = Astro.props;
 const { Content } = await render(post);
+const d = post.data;
+
+const site = Astro.site ?? new URL('https://www.normacontabil.com');
+const url = new URL(`/post/${post.id}/`, site).href;
+const fmtDate = (dt: Date) =>
+  new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(dt);
+
+// Relacionados: só os que existem e não são o próprio post.
+const related = d.related
+  .map((slug) => posts.find((p) => p.id === slug))
+  .filter((p): p is (typeof posts)[number] => !!p && p.id !== post.id);
+
+const jsonLdExtra: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: d.title,
+    description: d.excerpt,
+    image: new URL(d.cover, site).href,
+    datePublished: d.date.toISOString().slice(0, 10),
+    mainEntityOfPage: url,
+    author: d.author
+      ? { '@type': 'Person', name: d.author }
+      : { '@type': 'Organization', name: 'Norma Contábil' },
+    publisher: { '@type': 'Organization', name: 'Norma Contábil', url: 'https://www.normacontabil.com' },
+  },
+];
+if (d.faqs.length) {
+  jsonLdExtra.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
 ---
 
 <Base
-  title={`${post.data.title} | Norma Contábil`}
-  description={post.data.excerpt.slice(0, 155)}
+  title={`${d.title} | Norma Contábil`}
+  description={d.excerpt.slice(0, 155)}
   active="blog"
   bodyClass="page--post"
-  ogImage={post.data.cover}
+  ogImage={d.cover}
   ogType="article"
+  noindex={d.noindex}
+  jsonLdExtra={jsonLdExtra}
 >
   <article class="post">
     <div class="post__panel">
-      <p class="post__meta">{post.data.readingTime}</p>
-      <h1 class="post__title">{post.data.title}</h1>
+      <p class="post__meta">
+        {fmtDate(d.date)} · {d.readingTime}{d.category && <> · <span class="post__category">{d.category}</span></>}
+      </p>
+      <h1 class="post__title">{d.title}</h1>
+      {d.author && (
+        <p class="post__byline">
+          Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}
+        </p>
+      )}
+
+      {d.summary && (
+        <aside class="post__summary" aria-label="Resumo">
+          <p class="post__summary-label">Resumo</p>
+          <p>{d.summary}</p>
+        </aside>
+      )}
 
       <div class="post__body">
         <Content />
       </div>
+
+      {d.faqs.length > 0 && (
+        <section class="post__faq" aria-labelledby="faq-title">
+          <h2 id="faq-title">Perguntas frequentes</h2>
+          {d.faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <nav class="post__related" aria-labelledby="related-title">
+          <h2 id="related-title">Leia também</h2>
+          <ul>
+            {related.map((r) => (
+              <li><a href={`/post/${r.id}/`}>{r.data.title}</a></li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div>
   </article>
 

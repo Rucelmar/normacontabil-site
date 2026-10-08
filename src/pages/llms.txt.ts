@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { sortPosts } from '../lib/posts';
 
 // /llms.txt — padrão llmstxt.org: Markdown com H1, resumo e listas de links.
 // Gerado do conteúdo do site (os posts do blog entram sozinhos).
 export const GET: APIRoute = async () => {
   const site = 'https://www.normacontabil.com';
-  const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+  const posts = sortPosts(await getCollection('blog')).filter((p) => !p.data.noindex);
 
   const body = `# Norma Contábil
 

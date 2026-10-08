@@ -292,6 +292,26 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin: 30px 0; padding-left: 20px; border-left: 3px solid #2f54dd;
   font-style: italic; font-size: 24px; line-height: 1.4; font-weight: 400; color: #8a8a8a;
 }
+.post__body img { display: block; width: 100%; height: auto; margin-top: 30px; border-radius: 6px; }
+.post__body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+
+.post__category { color: var(--blue); }
+.post__byline { margin-top: 14px; font-size: 15px; color: #4a4a4a; }
+.post__role { color: #7a7a7a; }
+
+.post__summary { margin-top: 30px; padding: 22px 26px; background: #f3f5fb; border-left: 3px solid var(--blue); }
+.post__summary-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+.post__summary p:not(.post__summary-label) { margin-top: 8px; font-size: 17px; line-height: 1.5; color: #111; }
+
+.post__faq, .post__related { margin-top: 56px; padding-top: 36px; border-top: 1px solid #e4e4e4; }
+.post__faq h2, .post__related h2 { font-size: 24px; font-weight: 700; line-height: 1.3; color: #111; }
+.post__faq details { margin-top: 14px; border-bottom: 1px solid #ececec; padding-bottom: 14px; }
+.post__faq summary { cursor: pointer; font-size: 18px; font-weight: 600; line-height: 1.45; color: #111; }
+.post__faq details p { margin-top: 10px; font-size: 17px; line-height: 1.55; color: #333; }
+.post__related ul { margin-top: 14px; padding-left: 20px; list-style: disc; }
+.post__related li { margin-top: 8px; font-size: 17px; line-height: 1.45; }
+.post__related a { color: var(--blue); }
+.post__related a:hover { text-decoration: underline; }
 
 /* ------------------- Sobre ------------------- */
 .about-lead__grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px; align-items: start; }

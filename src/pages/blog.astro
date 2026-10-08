@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { sortPosts } from '../lib/posts';
 import Base from '../layouts/Base.astro';
 import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
 
-const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+const posts = sortPosts(await getCollection('blog'));
 
 const fmtDate = (d: Date) =>
   new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
