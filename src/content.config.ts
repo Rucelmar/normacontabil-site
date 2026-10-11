@@ -2,9 +2,10 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 // Coleção do blog: cada artigo é um arquivo .md em src/content/blog.
-// Publicar um novo post = criar um .md com este frontmatter. O painel adm
-// (adm.normacontabil.com) grava os mesmos campos; os opcionais abaixo só
-// aparecem na página quando preenchidos.
+// Os posts são criados e editados SÓ pelo painel adm (adm.normacontabil.com,
+// tela Blog), que grava este frontmatter e commita aqui. Não criar nem editar
+// .md à mão: a próxima publicação pelo painel sobrescreveria a mudança.
+// Os campos opcionais abaixo só aparecem na página quando preenchidos.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
