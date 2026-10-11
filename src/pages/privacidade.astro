@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Footer from '../components/Footer.astro';
 
-const atualizacao = '24 de julho de 2026';
+const atualizacao = '11 de outubro de 2026';
 
 // Política própria da Norma Contábil, alinhada à LGPD (Lei nº 13.709/2018).
 // Reflete o que este site efetivamente faz: formulários de contato/newsletter,
-// hospedagem (Cloudflare), envio de e-mail (Resend) e e-mail corporativo (Google).
+// hospedagem e medição anônima de audiência (Cloudflare), envio de e-mail dos
+// formulários (Resend), newsletter/e-mail marketing (Brevo) e e-mail corporativo (Google).
 const secoes = [
   {
     id: 'controlador',
@@ -19,6 +20,7 @@ const secoes = [
     html: `<p>Coletamos apenas o necessário para atender você:</p>
       <ul>
         <li><strong>Dados que você informa nos formulários:</strong> no formulário de contato, seu nome, empresa, e-mail, telefone (opcional) e a mensagem; na newsletter, o seu e-mail.</li>
+        <li><strong>Dados de navegação agregados:</strong> páginas visitadas, origem do acesso e tipo de dispositivo, medidos de forma anônima e sem cookies, apenas para entender como o site é usado.</li>
         <li><strong>Dados técnicos de acesso:</strong> informações como endereço IP, tipo de navegador e horário de acesso, tratados automaticamente pela nossa infraestrutura para segurança e prevenção de abuso (por exemplo, limitar envios automatizados de formulário).</li>
       </ul>
       <p>Não coletamos dados sensíveis nem dados de crianças e adolescentes por meio deste site.</p>`,
@@ -29,22 +31,24 @@ const secoes = [
     html: `<p>Usamos seus dados para finalidades específicas, cada uma com a devida base legal da LGPD:</p>
       <ul>
         <li><strong>Responder ao seu contato</strong> e conduzir tratativas de prestação de serviços — base legal: procedimentos preliminares e execução de contrato (art. 7º, V) e legítimo interesse (art. 7º, IX).</li>
-        <li><strong>Enviar novidades e conteúdos</strong> (newsletter) — base legal: o seu consentimento (art. 7º, I), que pode ser revogado a qualquer momento.</li>
+        <li><strong>Enviar novidades e conteúdos</strong> (newsletter e comunicações por e-mail) — base legal: o seu consentimento (art. 7º, I), que pode ser revogado a qualquer momento pelo link de descadastro presente em cada e-mail.</li>
+        <li><strong>Entender como o site é usado</strong>, por meio de estatísticas agregadas e anônimas, para melhorar conteúdos e navegação — base legal: legítimo interesse (art. 7º, IX).</li>
         <li><strong>Garantir a segurança do site</strong> e prevenir fraudes e abusos — base legal: legítimo interesse (art. 7º, IX).</li>
       </ul>`,
   },
   {
     id: 'cookies',
     t: 'Cookies',
-    html: `<p>Utilizamos apenas <strong>cookies funcionais</strong> — por exemplo, para registrar que você já visualizou o aviso de uso de cookies, evitando exibi-lo novamente. Não utilizamos cookies de publicidade nem vendemos dados para redes de anúncios. Você pode bloquear ou apagar cookies nas configurações do seu navegador, sem prejuízo ao acesso ao conteúdo do site.</p>`,
+    html: `<p>Utilizamos apenas <strong>cookies funcionais</strong> — por exemplo, para registrar que você já visualizou o aviso de uso de cookies, evitando exibi-lo novamente. Não utilizamos cookies de publicidade nem vendemos dados para redes de anúncios. A medição de audiência do site é feita sem cookies. Você pode bloquear ou apagar cookies nas configurações do seu navegador, sem prejuízo ao acesso ao conteúdo do site.</p>`,
   },
   {
     id: 'compartilhamento',
     t: 'Com quem compartilhamos',
     html: `<p>Não vendemos seus dados. Compartilhamos apenas com fornecedores que viabilizam o funcionamento do site e a comunicação com você, atuando como operadores sob nossas instruções:</p>
       <ul>
-        <li><strong>Cloudflare</strong> — hospedagem, entrega e segurança do site.</li>
+        <li><strong>Cloudflare</strong> — hospedagem, entrega e segurança do site, e medição anônima de audiência, sem cookies.</li>
         <li><strong>Resend</strong> — entrega dos e-mails gerados pelos formulários.</li>
+        <li><strong>Brevo</strong> — envio da newsletter e de comunicações por e-mail e gestão da lista de contatos, com opção de descadastro em cada mensagem.</li>
         <li><strong>Google Workspace</strong> — recebimento e gestão dos nossos e-mails corporativos.</li>
       </ul>
       <p>Também poderemos compartilhar dados quando exigido por lei ou por autoridade competente.</p>`,
