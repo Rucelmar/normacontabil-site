@@ -293,6 +293,32 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-style: italic; font-size: 24px; line-height: 1.4; font-weight: 400; color: #8a8a8a;
 }
 .post__body img { display: block; width: 100%; height: auto; margin-top: 30px; border-radius: 6px; }
+.post__body ol { margin-top: 14px; padding-left: 24px; list-style: decimal; }
+.post__body ol li::marker { font-weight: 700; color: var(--blue); }
+
+/* Tabela (comparativos, cronogramas) */
+.post__body .table-caption { margin-top: 34px; font-size: 14px; color: #6a6a6a; text-align: left; }
+.post__body table { width: 100%; margin-top: 14px; border-collapse: collapse; }
+@media (max-width: 640px) {
+  /* No celular, tabela larga rola de lado em vez de espremer as colunas. */
+  .post__body table { display: block; overflow-x: auto; }
+  .post__body .callout { padding: 22px 20px; }
+}
+.post__body .table-caption + table { margin-top: 8px; }
+.post__body th, .post__body td { padding: 12px 14px 12px 0; text-align: left; vertical-align: top; font-size: 15px; line-height: 1.45; color: #111; border-bottom: 1px solid #e4e4e4; }
+.post__body th { font-weight: 700; border-bottom: 2px solid #111; white-space: nowrap; }
+.post__body td:first-child { font-weight: 600; }
+
+/* Destaque: número ou ideia-chave */
+.post__body .callout { margin: 34px 0 0; padding: 26px 30px; background: #111; color: var(--white); border-radius: 6px; }
+.post__body .callout p { margin: 0; color: var(--white); text-align: left; }
+.post__body .callout .callout__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+.post__body .callout .callout__title { margin-top: 6px; font-size: clamp(1.6rem, 3.4vw, 34px); font-weight: 800; line-height: 1.15; color: var(--teal); }
+.post__body .callout .callout__title + p, .post__body .callout .callout__label + p { margin-top: 10px; }
+.post__body .callout p:not(.callout__label):not(.callout__title) { font-size: 17px; line-height: 1.55; }
+.post__body .callout ul { margin-top: 10px; padding-left: 20px; }
+.post__body .callout li { color: var(--white); font-size: 16px; }
+.post__body .callout a { color: var(--teal); }
 .post__body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
 .post__category { color: var(--blue); }
