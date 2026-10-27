@@ -307,7 +307,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__body .table-caption + table { margin-top: 8px; }
 .post__body th, .post__body td { padding: 12px 14px 12px 0; text-align: left; vertical-align: top; font-size: 15px; line-height: 1.45; color: #111; border-bottom: 1px solid #e4e4e4; }
 .post__body th { font-weight: 700; border-bottom: 2px solid #111; white-space: nowrap; }
-.post__body td:first-child { font-weight: 600; }
+.post__body td:first-child { font-weight: 600; min-width: 8.5em; }
+.post__body th, .post__body td { overflow-wrap: normal; word-break: normal; hyphens: manual; }
 
 /* Destaque: número ou ideia-chave */
 .post__body .callout { margin: 34px 0 0; padding: 26px 30px; background: #111; color: var(--white); border-radius: 6px; }
@@ -319,6 +320,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__body .callout ul { margin-top: 10px; padding-left: 20px; }
 .post__body .callout li { color: var(--white); font-size: 16px; }
 .post__body .callout a { color: var(--teal); }
+.post__body .callout .callout__note { margin-top: 12px; font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,.62); }
+
+/* Capa no topo do artigo */
+.post__cover { margin-top: 28px; }
+.post__cover img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; }
 .post__body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
 .post__category { color: var(--blue); }
