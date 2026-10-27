@@ -10,8 +10,23 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { post, posts } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const d = post.data;
+const banner = d.coverStyle === 'banner';
+
+// Trecho do título em destaque (cor): só se aparecer no título.
+const accentAt = d.titleAccent ? d.title.indexOf(d.titleAccent) : -1;
+const titleHead = accentAt >= 0 ? d.title.slice(0, accentAt) : d.title;
+const titleTail = accentAt >= 0 ? d.title.slice(accentAt + d.titleAccent!.length) : '';
+
+// Sumário: as seções (h2) do corpo e, se houver, as perguntas frequentes.
+const toc = d.toc
+  ? [
+      ...headings.filter((h) => h.depth === 2).map((h) => ({ href: `#${h.slug}`, text: h.text })),
+      ...(d.faqs.length ? [{ href: '#faq-title', text: 'Perguntas frequentes' }] : []),
+    ]
+  : [];
+const pad2 = (n: number) => String(n).padStart(2, '0');
 
 const site = Astro.site ?? new URL('https://www.normacontabil.com');
 const url = new URL(`/post/${post.id}/`, site).href;
@@ -61,28 +76,62 @@ if (d.faqs.length) {
   noindex={d.noindex}
   jsonLdExtra={jsonLdExtra}
 >
-  <article class="post">
+  <article class={`post${d.toc ? ' post--toc' : ''}`}>
     <div class="post__panel">
-      <p class="post__meta">
-        {fmtDate(d.date)} · {d.readingTime}{d.category && <> · <span class="post__category">{d.category}</span></>}
-      </p>
-      <h1 class="post__title">{d.title}</h1>
-      {d.author && (
-        <p class="post__byline">
-          {d.authorPhoto && <img class="post__author-photo" src={d.authorPhoto} alt="" width="40" height="40" loading="lazy" />}
-          <span>Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}</span>
-        </p>
-      )}
+      {banner ? (
+        <header class="post__hero">
+          <img class="post__hero-img" src={d.cover} alt="" width="1000" height="560" fetchpriority="high" />
+          <div class="post__hero-in">
+            {d.category && <p class="post__kicker">{d.category}</p>}
+            <h1 class="post__title">{titleHead}{accentAt >= 0 && <span class="post__title-accent">{d.titleAccent}</span>}{titleTail}</h1>
+            {d.subtitle && <p class="post__subtitle">{d.subtitle}</p>}
+            <p class="post__hero-meta">
+              {d.author && (
+                <span class="post__byline">
+                  {d.authorPhoto && <img class="post__author-photo" src={d.authorPhoto} alt="" width="40" height="40" loading="lazy" />}
+                  <span>Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}</span>
+                </span>
+              )}
+              <span>{fmtDate(d.date)} · {d.readingTime}</span>
+            </p>
+          </div>
+        </header>
+      ) : (
+        <>
+          <p class="post__meta">
+            {fmtDate(d.date)} · {d.readingTime}{d.category && <> · <span class="post__category">{d.category}</span></>}
+          </p>
+          <h1 class="post__title">{titleHead}{accentAt >= 0 && <span class="post__title-accent">{d.titleAccent}</span>}{titleTail}</h1>
+          {d.subtitle && <p class="post__subtitle">{d.subtitle}</p>}
+          {d.author && (
+            <p class="post__byline">
+              {d.authorPhoto && <img class="post__author-photo" src={d.authorPhoto} alt="" width="40" height="40" loading="lazy" />}
+              <span>Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}</span>
+            </p>
+          )}
 
-      <figure class="post__cover">
-        <img src={d.cover} alt="" width="1000" height="560" fetchpriority="high" />
-      </figure>
+          <figure class="post__cover">
+            <img src={d.cover} alt="" width="1000" height="560" fetchpriority="high" />
+          </figure>
+        </>
+      )}
 
       {d.summary && (
         <aside class="post__summary" aria-label="Resumo">
           <p class="post__summary-label">Resumo</p>
           <p>{d.summary}</p>
         </aside>
+      )}
+
+      {toc.length > 0 && (
+        <nav class="post__toc" aria-labelledby="toc-title">
+          <p class="post__toc-label" id="toc-title">Neste artigo</p>
+          <ol>
+            {toc.map((t, i) => (
+              <li><a href={t.href}><span class="post__toc-n">{pad2(i + 1)}</span>{t.text}</a></li>
+            ))}
+          </ol>
+        </nav>
       )}
 
       <div class="post__body">

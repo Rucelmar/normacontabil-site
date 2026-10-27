@@ -271,7 +271,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__panel {
   max-width: 1000px; margin-inline: auto;
   background: var(--pure-white);
-  padding: 58px clamp(24px, 8vw, 118px) 72px;
+  --panel-x: clamp(24px, 8vw, 118px);
+  padding: 58px var(--panel-x) 72px;
 }
 .post__back {
   display: inline-block; font-family: var(--font-mono); font-size: 13px;
@@ -316,7 +317,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__body .callout .callout__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
 .post__body .callout .callout__title { margin-top: 6px; font-size: clamp(1.6rem, 3.4vw, 34px); font-weight: 800; line-height: 1.15; color: var(--teal); }
 .post__body .callout .callout__title + p, .post__body .callout .callout__label + p { margin-top: 10px; }
-.post__body .callout p:not(.callout__label):not(.callout__title) { font-size: 17px; line-height: 1.55; }
+.post__body .callout p:not(.callout__label):not(.callout__title):not(.callout__note):not(.callout__cta) { font-size: 17px; line-height: 1.55; }
 .post__body .callout ul { margin-top: 10px; padding-left: 20px; }
 .post__body .callout li { color: var(--white); font-size: 16px; }
 .post__body .callout a { color: var(--teal); }
@@ -336,6 +337,99 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Capa no topo do artigo */
 .post__cover { margin-top: 28px; }
+.post__title-accent { color: var(--blue); }
+.post__subtitle { margin-top: 12px; font-size: 20px; line-height: 1.5; color: #4a4a4a; }
+
+/* Capa em banner: título sobre a foto, de ponta a ponta do painel */
+.post__hero {
+  position: relative; overflow: hidden; background: #111;
+  margin: -58px calc(-1 * var(--panel-x)) 0;
+}
+.post__hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.post__hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.86) 0%, rgba(0,0,0,.66) 55%, rgba(0,0,0,.4) 100%);
+}
+.post__hero-in { position: relative; z-index: 1; padding: clamp(64px, 11vw, 140px) var(--panel-x) clamp(44px, 6vw, 64px); }
+.post__kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+.post__hero .post__title { margin-top: 18px; max-width: 16em; color: var(--white); font-weight: 800; line-height: 1.15; }
+.post__hero .post__title-accent { color: var(--teal); }
+.post__hero .post__subtitle { margin-top: 22px; max-width: 34em; color: rgba(255,255,255,.86); font-size: 18px; }
+.post__hero-meta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; font-size: 14px; color: rgba(255,255,255,.8); }
+.post__hero .post__byline { margin-top: 0; font-size: 14px; color: rgba(255,255,255,.86); }
+.post__hero .post__role { color: rgba(255,255,255,.62); }
+
+/* Sumário "Neste artigo" e seções numeradas */
+.post__toc { margin-top: 34px; padding: 26px 26px 22px; background: var(--teal); }
+.post__toc-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #111; }
+.post__toc ol { margin-top: 12px; list-style: none; padding: 0; }
+.post__toc li { margin-top: 8px; font-size: 16px; line-height: 1.45; }
+.post__toc a { color: #111; }
+.post__toc a:hover { text-decoration: underline; }
+.post__toc-n { display: inline-block; min-width: 2.2em; font-weight: 700; }
+.post--toc .post__panel { counter-reset: secao; }
+.post--toc .post__body h2, .post--toc .post__faq h2 { counter-increment: secao; }
+.post--toc .post__body h2 { margin-top: 56px; padding-top: 22px; border-top: 4px solid var(--teal); }
+.post--toc .post__faq { border-top: 4px solid var(--teal); padding-top: 22px; }
+.post--toc .post__body h2::before, .post--toc .post__faq h2::before {
+  content: counter(secao, decimal-leading-zero); display: block; margin-bottom: 6px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .04em; color: #111;
+}
+
+/* Passos numerados em cartões */
+.post__body ol.steps { margin-top: 24px; padding: 0; list-style: none; counter-reset: passo; }
+.post__body ol.steps li {
+  counter-increment: passo; position: relative; margin-top: 14px;
+  padding: 22px 26px 22px 94px; border: 1.5px solid #111; font-size: 17px; line-height: 1.6;
+}
+.post__body ol.steps li::before {
+  content: counter(passo); position: absolute; left: 22px; top: 22px; width: 46px; height: 46px;
+  display: grid; place-items: center; background: var(--teal); font-weight: 700; font-size: 17px; color: #111;
+}
+
+/* Nota (aviso legal, fontes) e nota de tabela */
+.post__body .note { margin-top: 30px; padding-left: 18px; border-left: 4px solid #111; font-size: 14px; line-height: 1.6; color: #333; text-align: left; }
+.post__body .table-note { margin-top: 14px; font-size: 14px; line-height: 1.55; color: #4a4a4a; text-align: left; }
+
+/* Tabela sem cabeçalho (cronograma): fio no topo e a 1ª coluna em destaque */
+.post__body table:not(:has(thead)) { border-top: 1.5px solid #111; }
+.post__body table:not(:has(thead)) td { padding-top: 16px; padding-bottom: 16px; }
+.post__body table:not(:has(thead)) td:first-child { font-size: 19px; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+
+/* Linha de tabela destacada */
+.post__body tr.is-hl td { background: #111; color: var(--white); }
+.post__body tr.is-hl td:first-child { color: var(--teal); box-shadow: -14px 0 0 #111; }
+.post__body tr.is-hl td:last-child { box-shadow: 14px 0 0 #111; }
+
+/* Destaques: rótulo e número à esquerda (split), lado a lado (row) e botão */
+.post__body .callout--split { display: grid; grid-template-columns: minmax(0, 36%) 1fr; column-gap: 32px; align-items: start; }
+.post__body .callout--split .callout__label { grid-column: 1; grid-row: 1; }
+.post__body .callout--split .callout__title { grid-column: 1; grid-row: 2; }
+.post__body .callout--split > :not(.callout__label):not(.callout__title) { grid-column: 2; margin-top: 0; }
+.post__body .callout--split > p:not(.callout__label):not(.callout__title):not(.callout__note):not(.callout__cta) { grid-row: 1 / span 2; font-size: 15px; }
+.post__body .callout-row { margin-top: 34px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.post__body .callout-row .callout { margin-top: 0; }
+.post__body .callout-row .callout__title, .post__body .callout:has(> ul) .callout__title { font-size: 20px; font-weight: 700; line-height: 1.3; }
+.post__body .callout .callout__cta { margin-top: 22px; }
+.post__body .callout .callout__cta a {
+  display: inline-flex; align-items: center; gap: 16px; font-weight: 700; font-size: 16px;
+  color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 10px;
+}
+.post__body .callout .callout__cta a::after {
+  content: "→"; display: grid; place-items: center; width: 54px; height: 54px;
+  background: #111; color: var(--teal); font-size: 20px;
+}
+.post__body .callout:not(.callout--light):not(.callout--teal) .callout__cta a::after { background: var(--teal); color: #111; }
+/* Foto logo acima de um destaque: os dois formam um só bloco */
+.post__body p:has(> img:only-child):has(+ .callout) img { border-radius: 6px 6px 0 0; }
+.post__body p:has(> img:only-child) + .callout { margin-top: 0; border-radius: 0 0 6px 6px; }
+@media (max-width: 640px) {
+  .post__body .callout--split { grid-template-columns: 1fr; }
+  .post__body .callout--split > :not(.callout__label):not(.callout__title) { grid-column: 1; grid-row: auto !important; margin-top: 10px; }
+  .post__body ol.steps li { padding: 18px 18px 18px 74px; font-size: 16px; }
+  .post__body ol.steps li::before { left: 16px; top: 18px; width: 40px; height: 40px; }
+  .post__hero .post__title { font-size: 2rem; }
+}
 .post__cover img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; }
 .post__body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
