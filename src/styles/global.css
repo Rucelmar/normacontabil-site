@@ -321,6 +321,18 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__body .callout li { color: var(--white); font-size: 16px; }
 .post__body .callout a { color: var(--teal); }
 .post__body .callout .callout__note { margin-top: 12px; font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,.62); }
+/* Tons do destaque: claro (branco com borda) e verde-água */
+.post__body .callout--light { background: var(--pure-white); border: 1.5px solid #111; }
+.post__body .callout--light p, .post__body .callout--light li { color: #111; }
+.post__body .callout--light .callout__label { color: var(--grey-5d); }
+.post__body .callout--light .callout__title { color: #111; }
+.post__body .callout--light .callout__note { color: #6a6a6a; }
+.post__body .callout--light a { color: var(--blue); }
+.post__body .callout--teal { background: var(--teal); }
+.post__body .callout--teal p, .post__body .callout--teal li { color: #111; }
+.post__body .callout--teal .callout__label, .post__body .callout--teal .callout__note { color: #1c3f38; }
+.post__body .callout--teal .callout__title { color: #111; }
+.post__body .callout--teal a { color: #111; }
 
 /* Capa no topo do artigo */
 .post__cover { margin-top: 28px; }
@@ -328,7 +340,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .post__body a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
 .post__category { color: var(--blue); }
-.post__byline { margin-top: 14px; font-size: 15px; color: #4a4a4a; }
+.post__byline { margin-top: 14px; font-size: 15px; color: #4a4a4a; display: flex; align-items: center; gap: 12px; }
+.post__author-photo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center top; flex: none; }
 .post__role { color: #7a7a7a; }
 
 .post__summary { margin-top: 30px; padding: 22px 26px; background: #f3f5fb; border-left: 3px solid var(--blue); }

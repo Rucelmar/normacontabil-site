@@ -18,6 +18,7 @@ const blog = defineCollection({
     order: z.number().default(0),
     author: z.string().optional(),
     authorRole: z.string().optional(),
+    authorPhoto: z.string().optional(),
     category: z.string().optional(),
     categoryId: z.string().optional(),
     summary: z.string().optional(),

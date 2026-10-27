@@ -69,7 +69,8 @@ if (d.faqs.length) {
       <h1 class="post__title">{d.title}</h1>
       {d.author && (
         <p class="post__byline">
-          Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}
+          {d.authorPhoto && <img class="post__author-photo" src={d.authorPhoto} alt="" width="40" height="40" loading="lazy" />}
+          <span>Por <strong>{d.author}</strong>{d.authorRole && <span class="post__role"> · {d.authorRole}</span>}</span>
         </p>
       )}
 
